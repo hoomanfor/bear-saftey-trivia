@@ -25,3 +25,6 @@ $("#start").click(function(event) {
     start()
 });
 
+$("#done").click(function(event) {
+    console.log($("input:checked").length)
+})

@@ -26,5 +26,8 @@ $("#start").click(function(event) {
 });
 
 $("#done").click(function(event) {
-    console.log($("input:checked").length)
+    var answers = $("input");
+    for (var i = 0; i < answers.length; i++) {
+        console.log(answers[i].attributes[3].value)
+    }
 })

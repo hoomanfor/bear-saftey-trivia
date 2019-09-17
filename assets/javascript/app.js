@@ -96,6 +96,8 @@ var timer = 5;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
+var answered = 0; 
+var unAnswered = 10;
 
 function start() {
     $("#timer").text(timer);
@@ -107,6 +109,8 @@ function decrement() {
     $("#timer").text(timer);
     if (timer == 0) {
         stop();
+        calculateMetrics()
+        displayMetrics();
     }
 }
 
@@ -125,34 +129,47 @@ function renderQuestion(i) {
     $("#questions").append(questionEl);
 }
 
+function calculateMetrics() {
+    var answers = $("input:checked");
+    for (var i = 0; i < answers.length; i++) {
+        if (answers[i].attributes[2].value === answers[i].attributes[3].value) {
+            correct++;
+            answered++;
+        } else {
+            incorrect++; 
+            answered++;
+        }
+    }
+}
+
+function displayMetrics() {
+    $(".questions").empty();
+    unAnswered = unAnswered - answered; 
+    var metricsDiv = $("<div class='metrics' id='metrics'>")
+    metricsDiv.html("<h2>All Done!</h2>" + "<p>Correct: " + correct + "</p>" + "<p>Incorrect: " + incorrect + "</p>" + "<p>Unanswered: " + unAnswered + "</p>");
+    $(".questions").append(metricsDiv);
+}
+
 $("#start").click(function(event) {
     $(this).css("display", "none");
     $(".questions").css("display", "block");
-    start()
-    renderQuestion(0)
-    renderQuestion(1)
-    renderQuestion(2)
-    renderQuestion(3)
-    renderQuestion(4)
-    renderQuestion(5)
-    renderQuestion(6)
-    renderQuestion(7)
-    renderQuestion(8)
-    renderQuestion(9)
+    start();
+    renderQuestion(0);
+    renderQuestion(1);
+    renderQuestion(2);
+    renderQuestion(3);
+    renderQuestion(4);
+    renderQuestion(5);
+    renderQuestion(6);
+    renderQuestion(7);
+    renderQuestion(8);
+    renderQuestion(9);
     var doneBtn = $("<button type='button' id='done' class='done'>")
     doneBtn.html("Done");
     $("#questions").append(doneBtn);
 });
 
 $(document).on("click", "#done", function(event) {
-    var answers = $("input:checked");
-    for (var i = 0; i < answers.length; i++) {
-        if (answers[i].attributes[3].value === "true") {
-            correct++;
-        } else {
-            incorrect++; 
-        }
-    }
-    console.log("correct", correct)
-    console.log("incorrect", incorrect)
+    calculateMetrics();
+    displayMetrics();
 })

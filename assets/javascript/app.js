@@ -96,8 +96,7 @@ var timer = 5;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
-var answered = 0; 
-var unAnswered = 10;
+var questionIndex = 0; 
 
 function start() {
     $("#timer").text(timer);
@@ -109,8 +108,8 @@ function decrement() {
     $("#timer").text(timer);
     if (timer == 0) {
         stop();
-        calculateMetrics()
-        displayMetrics();
+        incorrect++;
+        setTimeout(newQuestion, 5000);
     }
 }
 
@@ -118,58 +117,107 @@ function stop() {
     clearInterval(intervalId);
 }
 
+function resetTimer() {
+    stop();
+    timer = 5; 
+    start();
+}
+
 function renderQuestion(i) {
     var questionEl = $("<p>");
     questionEl.html(questions[i].question + "<br>" + 
-    "<input type='radio' name='question-" + i + "' value='A' correct-value='B'>" + questions[i].A + "<br>" + 
-    "<input type='radio' name='question-" + i + "' value='B' correct-value='B'>" + questions[i].B + "<br>" +
-    "<input type='radio' name='question-" + i + "' value='C' correct-value='B'>" + questions[i].C + "<br>" +
-    "<input type='radio' name='question-" + i + "' value='D' correct-value='B'>" + questions[i].D + "<br>" +
-    "<input type='radio' name='question-" + i + "' value='E' correct-value='B'>" + questions[i].E)
-    $("#questions").append(questionEl);
+    "<button type='button' class='choices' name='question-" + i + "' value='A' correct-value='" + questions[i].correct_answer + "'>" + questions[i].A + "<br>" + 
+    "<button type='button' class='choices' name='question-" + i + "' value='B' correct-value='" + questions[i].correct_answer + "'>" + questions[i].B + "<br>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='C' correct-value='" + questions[i].correct_answer + "'>" + questions[i].C + "<br>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='D' correct-value='" + questions[i].correct_answer + "'>" + questions[i].D + "<br>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='E' correct-value='" + questions[i].correct_answer + "'>" + questions[i].E)
+    $("#questions").html(questionEl);
 }
 
-function calculateMetrics() {
-    var answers = $("input:checked");
-    for (var i = 0; i < answers.length; i++) {
-        if (answers[i].attributes[2].value === answers[i].attributes[3].value) {
-            correct++;
-            answered++;
-        } else {
-            incorrect++; 
-            answered++;
-        }
-    }
-}
-
-function displayMetrics() {
-    $(".questions").empty();
-    unAnswered = unAnswered - answered; 
-    var metricsDiv = $("<div class='metrics' id='metrics'>")
-    metricsDiv.html("<h2>All Done!</h2>" + "<p>Correct: " + correct + "</p>" + "<p>Incorrect: " + incorrect + "</p>" + "<p>Unanswered: " + unAnswered + "</p>");
-    $(".questions").append(metricsDiv);
+function newQuestion() {
+    questionIndex++;
+    renderQuestion(questionIndex);
+    resetTimer()
 }
 
 $("#start").click(function(event) {
     $(this).css("display", "none");
     $(".questions").css("display", "block");
     start();
-    renderQuestion(0);
-    renderQuestion(1);
-    renderQuestion(2);
-    renderQuestion(3);
-    renderQuestion(4);
-    renderQuestion(5);
-    renderQuestion(6);
-    renderQuestion(7);
-    renderQuestion(8);
-    renderQuestion(9);
-    var doneBtn = $("<button type='button' id='done' class='done'>")
-    doneBtn.html("Done");
-    $("#questions").append(doneBtn);
+    renderQuestion(questionIndex);
+    // var doneBtn = $("<button type='button' id='done' class='done'>")
+    // doneBtn.html("Done");
+    // $("#questions").append(doneBtn);
 });
 
-$(document).on("click", "#done", function(event) {
-    calculateMetrics();
-    displayMetrics();
-})
+$(document).on("click", ".choices", function() {
+    if ($(this)[0].attributes[3].value === $(this)[0].attributes[4].value) {
+        correct++;
+        newQuestion()
+    } else {
+        incorrect++;
+        newQuestion()
+    }
+    console.log("correct: ", correct);
+    console.log("incorrect: ", incorrect);
+});
+
+// $(document).on("click", "#done", function(event) {
+//     calculateMetrics();
+//     displayMetrics();
+// })
+
+// Display one question at a time. Until the user answers it or time runs out. 
+	// How do I display one question at a time?
+		// On Start, I need to render a question. 
+// Each question has a time limit (5 seconds)
+// If the User selects the correct answer.
+	// Congratulate the user.
+	// After a few seconds, display the next question without user input.
+		//Write a function which sets a 3 second interval period in-between questions. 
+// If the User selects an incorrect answer. 
+	// The correct answer is revealed.
+		//Write a function which displays the correct answer.
+	// After a few seconds, display the next question without user input.
+// If the user does not select an answer. Time-outs
+	// The correct answer is revealed.
+	// After a few seconds, display the next question without user input.
+//Once all the questions have been prompted. 
+	// Display the number of questions answered correctly.
+	// Display the number of questions answered incorrectly.
+	// An option to restart the game. 
+
+// On start, render a question.
+
+// I need to change the potential answers into buttons.
+// Give a class to the potential answers. 
+		// On “Click”, check if attributes: “value” and “correct-value” are equal
+			// If correct: 
+				// congratulate user 
+				// +1 to correct counter
+				// set 3 second countdown
+			// If incorrect:
+				// display correct answer
+				// +1 to incorrect counter
+				// set 3 second countdown
+
+// function calculateMetrics() {
+//     var answers = $("input:checked");
+//     for (var i = 0; i < answers.length; i++) {
+//         if (answers[i].attributes[2].value === answers[i].attributes[3].value) {
+//             correct++;
+//             answered++;
+//         } else {
+//             incorrect++; 
+//             answered++;
+//         }
+//     }
+// }
+
+// function displayMetrics() {
+//     $(".questions").empty();
+//     unAnswered = unAnswered - answered; 
+//     var metricsDiv = $("<div class='metrics' id='metrics'>")
+//     metricsDiv.html("<h2>All Done!</h2>" + "<p>Correct: " + correct + "</p>" + "<p>Incorrect: " + incorrect + "</p>" + "<p>Unanswered: " + unAnswered + "</p>");
+//     $(".questions").append(metricsDiv);
+// }

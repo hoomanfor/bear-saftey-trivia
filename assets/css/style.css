@@ -17,6 +17,10 @@ h1 {
     text-align: center; 
 }
 
+h2 {
+    font-size: 1.5rem; 
+}
+
 main {
     border: 1px solid black;
     padding: 2rem;
@@ -43,6 +47,6 @@ button {
     border: 1px solid black;
 }
 
-/* input {
-    display: block; 
-} */
+.notification {
+    text-align: center; 
+}

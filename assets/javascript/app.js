@@ -24,25 +24,25 @@ var questions = [
         B: "Follow the bear",
         C: "Shoot your firearm into the air",
         D: "Call for a helicopter", 
-        E: "Yell and wave your hands", 
+        E: "Yell & wave your hands", 
         correct_answer: "A"
     },
     {
-        question: "You decide to continue along the salmon stream described in #3. All of sudden you are knocked to the ground and a bear has your shoulder in its teeth and is shaking you. It’s happening so fast that you can’t tell whether the bear is black or brown. What is the immediate thing you should do?",
+        question: "You decide to continue along the salmon stream when all of sudden, you are knocked to the ground, and a bear has your shoulder in its teeth and is shaking you. It’s happening so fast that you can’t tell whether the bear is black or brown. What is the immediate thing you should do?",
         A: "Play dead",
         B: "Fight back",
         C: "Scream",
         D: "Lay on your stomach with your hands behind your neck", 
-        E: "Play dead AND Lay on your stomach with your hands behind your neck", 
+        E: "'Play dead' & 'Lay on your stomach with your hands behind your neck'", 
         correct_answer: "E"
     },
     {
-        question: "The attack described in #4 persists for what seems like a long time. The bear is slowly and deliberately sniffing and licking you between bites. What is the next thing you should do?",
+        question: "The attack described which has been described lasts for a long time. The bear is slowly and deliberately sniffing and licking you between bites. What is the next thing you should do?",
         A: "Play dead",
         B: "Fight back",
         C: "Scream!",
         D: "Lay on your stomach with your hands behind your neck", 
-        E: "Fight back AND Scream!", 
+        E: "'Fight back' & 'Scream!'", 
         correct_answer: "E"
     },
     {
@@ -87,7 +87,6 @@ var intervalId;
 var correct = 0;
 var incorrect = 0;
 var questionIndex = 0;
-var running = true; 
 
 function start() {
         $("#timer").text(timer);
@@ -98,10 +97,11 @@ function decrement() {
     timer--;
     $("#timer").text(timer);
     if (timer == 0) {
+        $(".choices").prop("disabled", true);
         stop();
         timesUp()
         incorrect++;
-        setTimeout(newQuestion, 5000);
+        setTimeout(newQuestion, 1000);
     }
 }
 
@@ -118,19 +118,23 @@ function resetTimer() {
 function renderQuestion(i) {
     var questionEl = $("<p>");
     questionEl.html(questions[i].question + "<br>" + 
-    "<button type='button' class='choices' name='question-" + i + "' value='A' correct-value='" + questions[i].correct_answer + "'>" + questions[i].A + "<br>" + 
-    "<button type='button' class='choices' name='question-" + i + "' value='B' correct-value='" + questions[i].correct_answer + "'>" + questions[i].B + "<br>" +
-    "<button type='button' class='choices' name='question-" + i + "' value='C' correct-value='" + questions[i].correct_answer + "'>" + questions[i].C + "<br>" +
-    "<button type='button' class='choices' name='question-" + i + "' value='D' correct-value='" + questions[i].correct_answer + "'>" + questions[i].D + "<br>" +
-    "<button type='button' class='choices' name='question-" + i + "' value='E' correct-value='" + questions[i].correct_answer + "'>" + questions[i].E)
+    "<button type='button' class='choices' name='question-" + i + "' value='A' correct-value='" + questions[i].correct_answer + "'>" + questions[i].A + "</button>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='B' correct-value='" + questions[i].correct_answer + "'>" + questions[i].B + "</button>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='C' correct-value='" + questions[i].correct_answer + "'>" + questions[i].C + "</button>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='D' correct-value='" + questions[i].correct_answer + "'>" + questions[i].D + "</button>" +
+    "<button type='button' class='choices' name='question-" + i + "' value='E' correct-value='" + questions[i].correct_answer + "'>" + questions[i].E + "</button>")
     $("#questions").html(questionEl);
 }
 
 function newQuestion() {
     $("#notification").html("");
-    questionIndex++;
-    renderQuestion(questionIndex);
-    resetTimer()
+    if (questionIndex < questions.length - 1) {
+        questionIndex++;
+        renderQuestion(questionIndex);
+        resetTimer()
+    } else {
+        displayMetrics()
+    }
 }
 
 function incorrectAnswer() {
@@ -155,6 +159,15 @@ function correctAnswer() {
     $("#timer").text("Correct!");
 }
 
+function displayMetrics() {
+    $(".timer").css("display", "none");
+    $("#questions").html("");
+    var metricsEl = $("<div>");
+    metricsEl.html("<p>Number of questions answered correctly: " + correct + "</p><p>Number of questions answered incorrectly: " + incorrect + "</p>" + 
+    "<button type='button' class='reset'>New Game</button>")
+    $("#questions").html(metricsEl);
+}
+
 $("#start").click(function(event) {
     $(this).css("display", "none");
     $(".questions").css("display", "block");
@@ -164,76 +177,30 @@ $("#start").click(function(event) {
 
 $(document).on("click", ".choices", function() {
     if ($(this)[0].attributes[3].value === $(this)[0].attributes[4].value) {
+        $(".choices").prop("disabled", true);
         correct++;
         stop();
         correctAnswer()
-        setTimeout(newQuestion, 5000);
-        running = false
+        setTimeout(newQuestion, 1000);
     } else {
+        $(".choices").prop("disabled", true);
         incorrect++;
         stop();
         incorrectAnswer()
-        setTimeout(newQuestion, 5000);
-        running = false
+        setTimeout(newQuestion, 1000);
     }
     console.log("correct: ", correct);
     console.log("incorrect: ", incorrect);
+    console.log("questionIndex: ", questionIndex);
 });
 
-// Look into this for disabling my button. 
-// document.getElementById("myBtn").disabled = true;
-
-// Display one question at a time. Until the user answers it or time runs out. 
-	// How do I display one question at a time?
-		// On Start, I need to render a question. 
-// Each question has a time limit (5 seconds)
-// If the User selects the correct answer.
-	// Congratulate the user.
-	// After a few seconds, display the next question without user input.
-		//Write a function which sets a 3 second interval period in-between questions. 
-// If the User selects an incorrect answer. 
-	// The correct answer is revealed.
-		//Write a function which displays the correct answer.
-	// After a few seconds, display the next question without user input.
-// If the user does not select an answer. Time-outs
-	// The correct answer is revealed.
-	// After a few seconds, display the next question without user input.
-//Once all the questions have been prompted. 
-	// Display the number of questions answered correctly.
-	// Display the number of questions answered incorrectly.
-	// An option to restart the game. 
-
-// On start, render a question.
-
-// I need to change the potential answers into buttons.
-// Give a class to the potential answers. 
-		// On “Click”, check if attributes: “value” and “correct-value” are equal
-			// If correct: 
-				// congratulate user 
-				// +1 to correct counter
-				// set 3 second countdown
-			// If incorrect:
-				// display correct answer
-				// +1 to incorrect counter
-				// set 3 second countdown
-
-// function calculateMetrics() {
-//     var answers = $("input:checked");
-//     for (var i = 0; i < answers.length; i++) {
-//         if (answers[i].attributes[2].value === answers[i].attributes[3].value) {
-//             correct++;
-//             answered++;
-//         } else {
-//             incorrect++; 
-//             answered++;
-//         }
-//     }
-// }
-
-// function displayMetrics() {
-//     $(".questions").empty();
-//     unAnswered = unAnswered - answered; 
-//     var metricsDiv = $("<div class='metrics' id='metrics'>")
-//     metricsDiv.html("<h2>All Done!</h2>" + "<p>Correct: " + correct + "</p>" + "<p>Incorrect: " + incorrect + "</p>" + "<p>Unanswered: " + unAnswered + "</p>");
-//     $(".questions").append(metricsDiv);
-// }
+$(document).on("click", ".reset", function() {
+    $(".timer").css("display", "block");
+    timer = 5;
+    intervalId;
+    correct = 0;
+    incorrect = 0;
+    questionIndex = 0;
+    start();
+    renderQuestion(questionIndex);
+})

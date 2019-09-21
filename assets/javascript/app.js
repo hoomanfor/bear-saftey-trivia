@@ -55,11 +55,12 @@ var questions = [
         correct_answer: "C"
     },
     {
-        question: "The bear in #6 drops down to all four feet and begins to walk toward you, in no apparent hurry. Its ears are up and it is sniffing the air and looking at you. It has no cubs. What is the next thing you should do?",
+        question: "That same standing bear has now dropped down to all four feet and begins to walk toward you, in no apparent hurry. Its ears are up and it is sniffing the air and looking at you. It has no cubs. What is the next thing you should do?",
         A: "Shoot into the air with your firearm",
         B: "Yell and wave your hands more vigorously",
         C: "Shoot the bear",
         D: "Avoid eye contact with the bear", 
+        E: "Stand completely still",
         correct_answer: "B"
     },
     {
@@ -82,20 +83,22 @@ var questions = [
     }
 ]
 
-var timer = 5;
+var timer = 45;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
 var questionIndex = 0;
 
 function start() {
-        $("#timer").text(timer);
+        $(".timer").html(timer + " seconds remain to make a selection");
+        $(".timer").css("text-align", "right");
         intervalId = setInterval(decrement, 1000);
 }
 
 function decrement() {
     timer--;
-    $("#timer").text(timer);
+    $(".timer").html(timer + " seconds remain to make a selection");
+    $(".timer").css("text-align", "right");
     if (timer == 0) {
         $(".choices").prop("disabled", true);
         stop();
@@ -111,13 +114,13 @@ function stop() {
 
 function resetTimer() {
     stop();
-    timer = 5; 
+    timer = 45; 
     start();
 }
 
 function renderQuestion(i) {
-    var questionEl = $("<p>");
-    questionEl.html(questions[i].question + "<br>" + 
+    var questionEl = $("<div>");
+    questionEl.html("<p class='dom-question'>" + questions[i].question + "</p>" +
     "<button type='button' class='choices' name='question-" + i + "' value='A' correct-value='" + questions[i].correct_answer + "'>" + questions[i].A + "</button>" +
     "<button type='button' class='choices' name='question-" + i + "' value='B' correct-value='" + questions[i].correct_answer + "'>" + questions[i].B + "</button>" +
     "<button type='button' class='choices' name='question-" + i + "' value='C' correct-value='" + questions[i].correct_answer + "'>" + questions[i].C + "</button>" +
@@ -138,7 +141,8 @@ function newQuestion() {
 }
 
 function incorrectAnswer() {
-    $("#timer").text("Wrong!");
+    $(".timer").text("Wrong!");
+    $(".timer").css("text-align", "center");
     var reveal = questions[questionIndex].correct_answer;
     reveal = questions[questionIndex][reveal];
     var notiEl = $("<p>");
@@ -147,7 +151,8 @@ function incorrectAnswer() {
 }
 
 function timesUp() {
-    $("#timer").text("Times Up!");
+    $(".timer").text("Times Up!");
+    $(".timer").css("text-align", "center");
     var reveal = questions[questionIndex].correct_answer;
     reveal = questions[questionIndex][reveal];
     var notiEl = $("<p>");
@@ -156,7 +161,8 @@ function timesUp() {
 }
 
 function correctAnswer() {
-    $("#timer").text("Correct!");
+    $(".timer").text("Correct!");
+    $(".timer").css("text-align", "center");
 }
 
 function displayMetrics() {

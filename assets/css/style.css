@@ -27,6 +27,7 @@ h2 {
 
 main {
     border-radius: 10px; 
+    border: 1px solid black; 
 }
 
 .start {
@@ -60,7 +61,10 @@ button {
 }
 
 .choices {
-    font-size: 1rem; 
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.5rem; 
+    width: 100%; 
+
 }
 
 .questions {
@@ -68,9 +72,23 @@ button {
 }
 
 .timer {
-    font-size: 2rem;
-    text-align: center; 
+    background-image: url("../images/timer-bg.jpg");
+    border-radius: 5px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.5rem;
+    padding: .5rem .5rem 0 0; 
+    text-align: right;
+    color: darkgray; 
     border: 1px solid black;
+}
+
+.dom-question {
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold; 
+    line-height: 1.5rem; 
+    padding: .5rem .5rem .8rem .5rem; 
+    text-align: center; 
 }
 
 .notification {

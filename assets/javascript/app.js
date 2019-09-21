@@ -83,7 +83,7 @@ var questions = [
     }
 ]
 
-var timer = 45;
+var timer = 2;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
@@ -114,7 +114,7 @@ function stop() {
 
 function resetTimer() {
     stop();
-    timer = 45; 
+    timer = 2; 
     start();
 }
 
@@ -146,7 +146,7 @@ function incorrectAnswer() {
     var reveal = questions[questionIndex].correct_answer;
     reveal = questions[questionIndex][reveal];
     var notiEl = $("<p>");
-    notiEl.html("The correct answer was:<br>" + reveal);
+    notiEl.html("<span id='reveal-intro'>The correct answer is: </span>" + "<span id='reveal'>" + reveal + "</span>");
     $("#notification").html(notiEl);
 }
 
@@ -156,7 +156,7 @@ function timesUp() {
     var reveal = questions[questionIndex].correct_answer;
     reveal = questions[questionIndex][reveal];
     var notiEl = $("<p>");
-    notiEl.html("The correct answer was:<br>" + reveal);
+    notiEl.html("<span id='reveal-intro'>The correct answer is: </span>" + "<span id='reveal'>" + reveal + "</span>");
     $("#notification").html(notiEl);
 }
 
@@ -168,10 +168,11 @@ function correctAnswer() {
 function displayMetrics() {
     $(".timer").css("display", "none");
     $("#questions").html("");
-    var metricsEl = $("<div>");
-    metricsEl.html("<p>Number of questions answered correctly: " + correct + "</p><p>Number of questions answered incorrectly: " + incorrect + "</p>" + 
-    "<button type='button' class='reset'>New Game</button>")
+    var metricsEl = $("<div class='metrics'>");
+    metricsEl.html("<span id='metric-intro'>Number of questions answered correctly: </span>" + "<span id='metric-reveal'>" + correct + "</span>" + "<span id='metric-intro'>Number of questions answered incorrectly: </span>" + "<span id='metric-reveal'>" + incorrect + "</span>");
     $("#questions").html(metricsEl);
+
+    // "<button type='button' class='reset'>New Game</button>"
 }
 
 $("#start").click(function(event) {

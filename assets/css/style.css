@@ -27,7 +27,7 @@ h2 {
 
 main {
     border-radius: 10px; 
-    border: 1px solid black; 
+    /* border: 1px solid black;  */
 }
 
 .start {
@@ -64,7 +64,26 @@ button {
     font-family: 'Assistant', sans-serif;
     font-size: 1.5rem; 
     width: 100%; 
+    background-color: #F2F2F2;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black; 
+}
 
+.choices:hover {
+    border: 3px solid #4C594F;
+    /* outline-offset: -2px;  */
+    background-image: url("../images/choice-hover.jpg");
+    color: black;
+    font-weight: bold;
+    font-shadow: 1px 1px black;
+    border-radius: 5px;
+}
+
+.choices:active {
+    outline:3px solid #4BD4F2;
+    color: #4BD4F2;
+    
 }
 
 .questions {
@@ -78,21 +97,40 @@ button {
     font-size: 1.5rem;
     padding: .5rem .5rem 0 0; 
     text-align: right;
-    color: darkgray; 
+    color: #4C594F; 
     border: 1px solid black;
+    text-shadow: 1px 1px 1px #BFBFB8;
 }
 
-.dom-question {
+.dom-question,
+.notification {
     font-family: 'Assistant', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold; 
-    line-height: 1.5rem; 
+    line-height: 1.8rem; 
     padding: .5rem .5rem .8rem .5rem; 
     text-align: center; 
 }
 
-.notification {
-    text-align: center; 
+#reveal {
+    background-image: url("../images/choice-hover.jpg");
+    border: 1px solid #4C594F;
+    border-radius: 5px; 
+    display:inline-block; 
+}
+
+#reveal-intro {
+    background-color: #BBBF34;
+    color: black;
+    border: 1px solid black; 
+    border-radius: 5px; 
+    display:inline-block; 
+}
+
+.metrics {
+    background-image: url("../images/metrics-bg.jpg");
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.6rem;
 }
 
 /* ----
@@ -102,3 +140,11 @@ font-family: 'Assistant', sans-serif;
 font-family: 'Kalam', cursive;
 font-family: 'Hind Madurai', sans-serif;
 ---- */
+
+/* Color Theme Swatches in Hex */
+.nature-background-with-moody-vintage-forest-1-hex { color: #35403A; }
+.nature-background-with-moody-vintage-forest-2-hex { color: #252626; }
+.nature-background-with-moody-vintage-forest-3-hex { color: #4C594F; }
+.nature-background-with-moody-vintage-forest-4-hex { color: #A4A69C; }
+.nature-background-with-moody-vintage-forest-5-hex { color: #BFBFB8; }
+

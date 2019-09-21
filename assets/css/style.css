@@ -8,13 +8,17 @@
 }
 
 header {
+    background-image: url("../images/header-bg.jpg");
     border: 1px solid black;
-    padding: 1rem;  
+    padding: 0; 
+    border-radius: 5px; 
 }
 
 h1 {
-    font-size: 2.5rem;
-    text-align: center; 
+    font-family: 'Vibes', cursive;
+    font-size: 3rem;
+    text-align: left; 
+    padding: 1rem 0 0 0 ; 
 }
 
 h2 {
@@ -22,8 +26,30 @@ h2 {
 }
 
 main {
+    border-radius: 10px; 
+}
+
+.start {
+    background-image: url("../images/start-bg.jpg");
     border: 1px solid black;
-    padding: 2rem;
+    font-family: 'Vibes', cursive;
+    border-radius: 10px; 
+    font-weight: 900;
+    font-size: 5rem; 
+    text-shadow: 3px 3px black;
+    padding: 0 0 20rem 0; 
+    height: 360px;
+    width: 960px; 
+    color: white; 
+    display: inline-block; 
+}
+
+.start:hover {
+    background-image: url("");
+    background-color: black;
+    border: 2px solid grey; 
+    padding: 0 0 20rem 0; 
+    /* height: 100%; */
 }
 
 button {
@@ -50,3 +76,11 @@ button {
 .notification {
     text-align: center; 
 }
+
+/* ----
+font-family: 'Vibes', cursive;
+font-family: 'Work Sans', sans-serif;
+font-family: 'Assistant', sans-serif;
+font-family: 'Kalam', cursive;
+font-family: 'Hind Madurai', sans-serif;
+---- */

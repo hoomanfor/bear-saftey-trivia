@@ -27,7 +27,6 @@ h2 {
 
 main {
     border-radius: 10px; 
-    /* border: 1px solid black;  */
 }
 
 .start {
@@ -48,16 +47,40 @@ main {
 .start:hover {
     background-image: url("");
     background-color: black;
-    border: 2px solid grey; 
+    border: 2px solid #BFBFB8;
     padding: 0 0 20rem 0; 
     /* height: 100%; */
 }
 
 button {
-    font-size: 2rem;
-    display: block;
-    margin: 0 auto;
     cursor: pointer; 
+}
+
+.reset-container {
+    border: 1px solid black; 
+    text-align: right; 
+    background-image: url("../images/reset-bg.jpg");
+    border-radius: 5px;
+}
+
+.reset {
+    background-image: url("../images/reset-btn-bg.jpg");
+    font-family: 'Vibes', cursive;
+    font-weight: bold; 
+    text-shadow: 1px 1px white; 
+    border: 1px solid #252626;
+    color: #252626;
+    font-size: 1.8rem; 
+    padding: .6rem; 
+    border-radius: 5px;
+}
+
+.reset:hover {
+    background-image: url("");
+    background-color: black;
+    border: 1px solid white; 
+    color: white; 
+    text-shadow: none; 
 }
 
 .choices {
@@ -102,8 +125,7 @@ button {
     text-shadow: 1px 1px 1px #BFBFB8;
 }
 
-.dom-question,
-.notification {
+.dom-question {
     font-family: 'Assistant', sans-serif;
     font-size: 1.6rem;
     font-weight: bold; 
@@ -112,11 +134,19 @@ button {
     text-align: center; 
 }
 
+.notification {
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold; 
+    text-align: center; 
+}
+
 #reveal {
     background-image: url("../images/choice-hover.jpg");
     border: 1px solid #4C594F;
     border-radius: 5px; 
-    display:inline-block; 
+    display: inline-block;
+    padding: .5rem; 
 }
 
 #reveal-intro {
@@ -124,13 +154,28 @@ button {
     color: black;
     border: 1px solid black; 
     border-radius: 5px; 
-    display:inline-block; 
+    display: inline-block; 
+    padding: .5rem; 
 }
 
 .metrics {
     background-image: url("../images/metrics-bg.jpg");
     font-family: 'Assistant', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+    border-radius: 5px;
+    border: 1px solid black; 
+    padding: .5rem; 
+    text-align: right; 
+    font-weight: bold; 
+}
+
+@media screen and (max-width: 960px) {
+    .container,
+    .start {
+        width: 100%;
+    }
+
+
 }
 
 /* ----

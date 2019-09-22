@@ -83,7 +83,7 @@ var questions = [
     }
 ]
 
-var timer = 2;
+var timer = 45;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
@@ -104,7 +104,7 @@ function decrement() {
         stop();
         timesUp()
         incorrect++;
-        setTimeout(newQuestion, 1000);
+        setTimeout(newQuestion, 3000);
     }
 }
 
@@ -114,7 +114,7 @@ function stop() {
 
 function resetTimer() {
     stop();
-    timer = 2; 
+    timer = 45; 
     start();
 }
 
@@ -169,10 +169,11 @@ function displayMetrics() {
     $(".timer").css("display", "none");
     $("#questions").html("");
     var metricsEl = $("<div class='metrics'>");
-    metricsEl.html("<span id='metric-intro'>Number of questions answered correctly: </span>" + "<span id='metric-reveal'>" + correct + "</span>" + "<span id='metric-intro'>Number of questions answered incorrectly: </span>" + "<span id='metric-reveal'>" + incorrect + "</span>");
+    metricsEl.html("&#9745; " + correct + "<br>&#9746; " + incorrect);
     $("#questions").html(metricsEl);
-
-    // "<button type='button' class='reset'>New Game</button>"
+    var resetEl = $("<div class='reset-container'>");
+    resetEl.html("<button type='button' class='reset'>" + "New Game" + "</button>");
+    $("#questions").append(resetEl);
 }
 
 $("#start").click(function(event) {
@@ -188,13 +189,13 @@ $(document).on("click", ".choices", function() {
         correct++;
         stop();
         correctAnswer()
-        setTimeout(newQuestion, 1000);
+        setTimeout(newQuestion, 3000);
     } else {
         $(".choices").prop("disabled", true);
         incorrect++;
         stop();
         incorrectAnswer()
-        setTimeout(newQuestion, 1000);
+        setTimeout(newQuestion, 3000);
     }
     console.log("correct: ", correct);
     console.log("incorrect: ", incorrect);
@@ -203,7 +204,7 @@ $(document).on("click", ".choices", function() {
 
 $(document).on("click", ".reset", function() {
     $(".timer").css("display", "block");
-    timer = 5;
+    timer = 45;
     intervalId;
     correct = 0;
     incorrect = 0;
